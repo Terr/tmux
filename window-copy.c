@@ -4714,13 +4714,9 @@ window_copy_get_selection(struct window_mode_entry *wme, size_t *len)
 		*len = 0;
 		return (NULL);
 	}
-	 /* Remove final \n (unless at end in vi mode). */
-	if (keys == MODEKEY_EMACS || lastex <= ey_last) {
-		if (~grid_get_line(data->backing->grid, ey)->flags &
-		    GRID_LINE_WRAPPED || lastex != ey_last)
-			off -= 1;
-	}
-	*len = off;
+
+	*len = off - 1;	/* remove final \n */
+
 	return (buf);
 }
 
